@@ -1,15 +1,15 @@
 
 function! alfred#Run()
-  execute 'term' g:alfred_location
+  execute 'term' './'.g:alfred_location
 endfunction
 
 "Build commands
 function! alfred#BuildLastTarget()
-  execute 'term'  g:alfred_location '--build'
+  execute 'term'  './'.g:alfred_location '--build'
 endfunction
 
 function! alfred#BuildTarget(target)
-  execute 'term' g:alfred_location '--build --auto' a:target
+  execute 'term' './'.g:alfred_location '--build --auto' a:target
 endfunction
 
 function! alfred#BuildAllTargets()
@@ -18,14 +18,14 @@ endfunction
 
 "Unit test commands
 function! alfred#UnitTestRun(target)
-  execute 'term' g:alfred_location '--docker-tools --run-command --command bazel test' a:target
+  execute 'term' './'.g:alfred_location '--docker-tools --run-command --command bazel test' a:target
 endfunction
 
 function! alfred#UnitTestRunAll()
-  execute 'term' g:alfred_location '--unit-tests --run --unit-tests-mode fast'
+  execute 'term' './'.g:alfred_location '--unit-tests --run --unit-tests-mode fast'
 endfunction
 
 "Clean
 function! alfred#Clean()
-  execute 'term' g:alfred_location '--mrproper'
+  execute 'term' './'.g:alfred_location '--mrproper'
 endfunction
