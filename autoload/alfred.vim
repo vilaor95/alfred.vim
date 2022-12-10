@@ -9,7 +9,7 @@ function! alfred#BuildLastTarget()
 endfunction
 
 function! alfred#BuildTarget(target)
-  execute 'term' './'.g:alfred_location '--build --auto' a:target
+  execute 'term' './'.g:alfred_location '--build --select-targets --auto' "'".a:target."'"
 endfunction
 
 function! alfred#BuildAllTargets()
