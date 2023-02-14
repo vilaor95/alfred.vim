@@ -1,15 +1,26 @@
+let s:termCLI = 'term ++curwin'
+
+function! alfred#CreateNewWindowAtBottom(height)
+  bot new
+  resize 20 
+endfunction
 
 function! alfred#Run()
-  execute 'term' './'.g:alfred_location
+  call alfred#CreateNewWindowAtBottom(0)
+  execute s:termCLI './'.g:alfred_location
 endfunction
 
 "Build commands
 function! alfred#BuildLastTarget()
-  execute 'term'  './'.g:alfred_location '--build'
+  call alfred#CreateNewWindowAtBottom(0)
+  let s:command_line = '--build'
+  execute s:termCLI  './'.g:alfred_location s:command_line
 endfunction
 
 function! alfred#BuildTarget(target)
-  execute 'term' './'.g:alfred_location '--build --select-targets --auto' "'".a:target."'"
+  call alfred#CreateNewWindowAtBottom(0)
+  let s:command_line = '--build --select-targets --auto'
+  execute s:termCLI './'.g:alfred_location  s:command_line "'".a:target."'"
 endfunction
 
 function! alfred#BuildAllTargets()
@@ -18,14 +29,19 @@ endfunction
 
 "Unit test commands
 function! alfred#UnitTestRun(target)
-  execute 'term' './'.g:alfred_location '--docker-tools --run-command --command bazel test' a:target
+  call alfred#CreateNewWindowAtBottom(0)
+  let s:command_line = '--unit-tests --run --unit-test-filter '.a:target.' --unit-tests-mode fast'
+  execute s:termCLI './'.g:alfred_location s:command_line
 endfunction
 
 function! alfred#UnitTestRunAll()
-  execute 'term' './'.g:alfred_location '--unit-tests --run --unit-tests-mode fast'
+  call alfred#CreateNewWindowAtBottom(0)
+  call alfred#UnitTestRun('ALL')
 endfunction
 
 "Clean
 function! alfred#Clean()
-  execute 'term' './'.g:alfred_location '--mrproper'
+  call alfred#CreateNewWindowAtBottom(0)
+  let s:command_line = '--mrproper'
+  execute s:termCLI './'.g:alfred_location s:command_line
 endfunction

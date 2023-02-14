@@ -12,22 +12,22 @@ if !has('terminal')
   finish
 endif
 
-let alfred_location = ""
+let g:alfred_location = ""
 
-let alfred_exe = "alfred.py"
-let alfred_found = v:false
+let s:alfred_exe = "alfred.py"
+let s:alfred_found = v:false
 
 "Find alfred executable
 "Look if alfred.py is in current dir. If not, look for fw_src dir and look for
 "alfred.py in fw_src. If all of these fail, prevent loading.
 let fw_dirs = ["", "fw_src/"]
 for dir in fw_dirs
-  if findfile(alfred_exe, dir) == dir . alfred_exe
-    let alfred_found = v:true
-    let alfred_location = dir . alfred_exe
+  if findfile(s:alfred_exe, dir) == dir . s:alfred_exe
+    let s:alfred_found = v:true
+    let g:alfred_location = dir . s:alfred_exe
   endif
 endfor
-if alfred_found == v:false
+if s:alfred_found == v:false
   finish
 endif
 
