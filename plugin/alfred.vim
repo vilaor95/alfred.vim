@@ -42,6 +42,8 @@ command! -nargs=0 AlfredBuildAll        call alfred#BuildAllTargets()
 "Unit test commands
 command! -nargs=1 AlfredUnitTestRun     call alfred#UnitTestRun(<args>)
 command! -nargs=0 AlfredUnitTestRunAll  call alfred#UnitTestRunAll()
+command! -nargs=0 AlfredUnitTestDebug           call alfred#UnitTestDebug(<args>)
+command! -nargs=1 AlfredUnitTestOpenDebug       call alfred#OpenDebugger(<args>)
 
 "Clean commands
 command! -nargs=0 AlfredClean           call alfred#Clean()

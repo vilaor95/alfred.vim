@@ -15,6 +15,10 @@ function! alfred#executeOnNewWindow(...)
   execute s:command
 endfunction
 
+function! alfred#OpenDebugger(target)
+  let s:command = '--unit-tests --debug-unit-test --unit-test-name '.a:target.' --debugger gdb'
+  call alfred#executeOnNewWindow(s:command)
+endfunction
 
 function! alfred#Run()
   call alfred#executeOnNewWindow()
@@ -45,6 +49,8 @@ function! alfred#UnitTestRun(target)
   call alfred#UnitTestRunMode(a:target, 'fast')
 endfunction
 
+function! alfred#UnitTestDebug(target)
+  call alfred#UnitTestRunMode(a:target, 'debug')
 endfunction
 
 function! alfred#UnitTestRunAll()
