@@ -5,22 +5,30 @@ function! alfred#CreateNewWindowAtBottom(height)
   resize 20 
 endfunction
 
-function! alfred#Run()
+function! alfred#executeOnNewWindow(...)
   call alfred#CreateNewWindowAtBottom(0)
-  execute s:termCLI './'.g:alfred_location
+  let s:command = s:termCLI.' ./'.g:alfred_location
+  if a:0
+    let s:command = s:command.' '.a:1
+  endif
+  echo s:command
+  execute s:command
+endfunction
+
+
+function! alfred#Run()
+  call alfred#executeOnNewWindow()
 endfunction
 
 "Build commands
 function! alfred#BuildLastTarget()
-  call alfred#CreateNewWindowAtBottom(0)
-  let s:command_line = '--build'
-  execute s:termCLI  './'.g:alfred_location s:command_line
+  let s:command = '--build'
+  call alfred#executeOnNewWindow(s:command)
 endfunction
 
 function! alfred#BuildTarget(target)
-  call alfred#CreateNewWindowAtBottom(0)
-  let s:command_line = '--build --select-targets --auto'
-  execute s:termCLI './'.g:alfred_location  s:command_line "'".a:target."'"
+  let s:command = '--build --select-targets --auto'
+  call alfred#executeOnNewWindow(s:command)
 endfunction
 
 function! alfred#BuildAllTargets()
@@ -28,20 +36,23 @@ function! alfred#BuildAllTargets()
 endfunction
 
 "Unit test commands
+function! alfred#UnitTestRunMode(target, mode)
+  let s:command = '--unit-tests --run --unit-test-filter '.a:target.' --unit-tests-mode '.a:mode
+  call alfred#executeOnNewWindow(s:command)
+endfunction
+
 function! alfred#UnitTestRun(target)
-  call alfred#CreateNewWindowAtBottom(0)
-  let s:command_line = '--unit-tests --run --unit-test-filter '.a:target.' --unit-tests-mode fast'
-  execute s:termCLI './'.g:alfred_location s:command_line
+  call alfred#UnitTestRunMode(a:target, 'fast')
+endfunction
+
 endfunction
 
 function! alfred#UnitTestRunAll()
-  call alfred#CreateNewWindowAtBottom(0)
   call alfred#UnitTestRun('ALL')
 endfunction
 
 "Clean
 function! alfred#Clean()
-  call alfred#CreateNewWindowAtBottom(0)
-  let s:command_line = '--mrproper'
-  execute s:termCLI './'.g:alfred_location s:command_line
+  let s:command = '--mrproper'
+  call alfred#executeOnNewWindow(s:command)
 endfunction
