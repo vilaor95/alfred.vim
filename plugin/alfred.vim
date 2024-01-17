@@ -25,6 +25,7 @@ for dir in fw_dirs
   if findfile(s:alfred_exe, dir) == dir . s:alfred_exe
     let s:alfred_found = v:true
     let g:alfred_location = dir . s:alfred_exe
+    let s:fw_dir = dir
   endif
 endfor
 if s:alfred_found == v:false
@@ -47,3 +48,6 @@ command! -nargs=1 AlfredUnitTestOpenDebug       call alfred#OpenDebugger(<args>)
 
 "Clean commands
 command! -nargs=0 AlfredClean                   call alfred#Clean()
+
+"Copy commands to move compiled binaries to targets
+command! -nargs=1  AlfredCopyBinsToBench        execute '!scp '. s:fw_dir .'/output/*.bin <args>:C:\\home\\developer\\workspace\\'
