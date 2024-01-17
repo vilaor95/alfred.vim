@@ -32,17 +32,17 @@ if s:alfred_found == v:false
 endif
 
 "Run Alfred
-command -nargs=0 AlfredRun                      call alfred#Run()
+command! -nargs=0 AlfredRun                      call alfred#Run()
 
 "Build commands
 command! -nargs=0 AlfredBuild                   call alfred#BuildLastTarget()
-command! -nargs=1 AlfredBuildTarget             call alfred#BuildTarget(<args>)
+command! -nargs=+ AlfredBuildTarget             call alfred#BuildTarget(<args>)
 command! -nargs=0 AlfredBuildAll                call alfred#BuildAllTargets()
 
 "Unit test commands
 command! -nargs=1 AlfredUnitTestRun             call alfred#UnitTestRun(<args>)
 command! -nargs=0 AlfredUnitTestRunAll          call alfred#UnitTestRunAll()
-command! -nargs=0 AlfredUnitTestDebug           call alfred#UnitTestDebug(<args>)
+command! -nargs=1 AlfredUnitTestDebug           call alfred#UnitTestDebug(<args>)
 command! -nargs=1 AlfredUnitTestOpenDebug       call alfred#OpenDebugger(<args>)
 
 "Clean commands

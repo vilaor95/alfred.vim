@@ -31,12 +31,12 @@ function! alfred#BuildLastTarget()
 endfunction
 
 function! alfred#BuildTarget(target)
-  let s:command = '--build --select-targets --auto'
+  let s:command = '--build  --select-targets --auto '.a:target
   call alfred#executeOnNewWindow(s:command)
 endfunction
 
 function! alfred#BuildAllTargets()
-  call alfred#BuildTarget("*")
+  call alfred#BuildTarget('\\*')
 endfunction
 
 "Unit test commands
